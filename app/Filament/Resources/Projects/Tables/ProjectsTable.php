@@ -24,6 +24,7 @@ class ProjectsTable
                 ImageColumn::make('image_path')
                     ->label('')
                     ->imageHeight(40)
+                    ->disk('public')
                     ->circular(),
                 TextColumn::make('no')
                     ->label('')

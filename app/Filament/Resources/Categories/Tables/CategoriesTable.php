@@ -21,6 +21,7 @@ class CategoriesTable
                 ImageColumn::make('image_path')
                     ->label('الصورة البارزة ')
                     ->imageHeight(40)
+                    ->disk('public')
                     ->circular(),
                 TextColumn::make('name')
                     ->label('الاسم')

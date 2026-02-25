@@ -17,7 +17,7 @@ class Project extends Model
     protected $fillable = ['name', 'category_id', 'status', 'date_start', 'date_end',
         'target_amount', 'paid_amount', 'remaining_amount', 'rate', 'image_path', 'description',
         'short_description', 'is_seasonal', 'seasonal_start', 'seasonal_end', 'hide_on_complete',
-        'show_counter'];
+        'show_counter','default_amount'];
     protected $casts = [
         'status' => ProjectStatus::class,
         'hide_on_complete' => 'boolean',
@@ -60,9 +60,28 @@ class Project extends Model
 
         return $next_no;
     }
-
+    public function scopePublished($query)
+    {
+        $now = now();
+        return $query->where('status', ProjectStatus::ACTIVE)
+            ->where(function ($query) use ($now) {
+                $query->where('date_start', '<=', $now)
+                    ->orWhereNull('date_start');
+            })
+            ->where(function ($query) use ($now) {
+                $query->where('date_end', '>=', $now)
+                    ->orWhereNull('date_end');
+            });
+    }
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function getImageFullPathAttribute()
+    {
+        if ($this->image_path){
+            return asset('storage/' . $this->image_path);
+        }
     }
 }

@@ -21,7 +21,8 @@ class CategoryForm
                 FileUpload::make('image_path')
                     ->label('الصورة البارزة')
                     ->image()
-                    ->imageEditor()
+                    ->disk('public')
+                    ->directory('categories')
                     ->required()
                     ->columnSpanFull(),
                 Textarea::make('description')

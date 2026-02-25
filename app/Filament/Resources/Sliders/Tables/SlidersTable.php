@@ -19,6 +19,7 @@ class SlidersTable
             ->columns([
                 ImageColumn::make('image_path')
                 ->label('')
+                    ->disk('public')
                     ->imageHeight(40)
                     ->circular(),
                 TextColumn::make('name')

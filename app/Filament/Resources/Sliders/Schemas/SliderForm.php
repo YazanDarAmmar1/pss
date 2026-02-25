@@ -33,6 +33,9 @@ class SliderForm
                         FileUpload::make('image_path')
                             ->label('الصورة البارزة')
                             ->image()
+                            ->disk('public')
+                            ->directory('sliders')
+                            ->visibility('public')
                             ->columnSpanFull()
                             ->required(),
 
@@ -69,8 +72,7 @@ class SliderForm
                                     }),
                                 TextInput::make('second_button_text')
                                     ->label('عنوان الزر')
-                                    ->visible(fn (Get $get) => $get('second_button_visibility'))
-                                    ->url(),
+                                    ->visible(fn (Get $get) => $get('second_button_visibility')),
                                 TextInput::make('second_button_link')
                                     ->label('رابط الزر')
                                     ->visible(fn (Get $get) => $get('second_button_visibility'))

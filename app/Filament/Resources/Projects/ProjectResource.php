@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Projects;
 
+use App\Filament\Clusters\Book\BookCluster;
+use App\Filament\Clusters\Project\ProjectCluster;
 use App\Filament\Resources\Projects\Pages\CreateProject;
 use App\Filament\Resources\Projects\Pages\EditProject;
 use App\Filament\Resources\Projects\Pages\ListProjects;
@@ -25,6 +27,8 @@ class ProjectResource extends Resource
     protected static ?string $navigationLabel = 'المشاريع';
     protected static ?string $model = Project::class;
 
+    protected static ?string $cluster = ProjectCluster::class;
+    protected static ?int $navigationSort = 1;
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBriefcase;
 
     protected static ?string $recordTitleAttribute = 'name';

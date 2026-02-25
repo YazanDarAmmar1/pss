@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Categories;
 
+use App\Filament\Clusters\Project\ProjectCluster;
 use App\Filament\Resources\Categories\Pages\CreateCategory;
 use App\Filament\Resources\Categories\Pages\EditCategory;
 use App\Filament\Resources\Categories\Pages\ListCategories;
@@ -20,8 +21,8 @@ class CategoryResource extends Resource
     use Translatable;
 
     protected static ?string $modelLabel = 'تصنيف';
-    protected static ?string $pluralModelLabel = 'التصنيفات';
-    protected static ?string $navigationLabel = 'التصنيفات';
+    protected static ?string $pluralModelLabel = 'تصنيفات المشاريع';
+    protected static ?string $navigationLabel = 'تصنيفات المشاريع';
 
 
     protected static ?string $model = Category::class;
@@ -29,7 +30,8 @@ class CategoryResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
 
-
+    protected static ?string $cluster = ProjectCluster::class;
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $recordTitleAttribute = 'name';
 

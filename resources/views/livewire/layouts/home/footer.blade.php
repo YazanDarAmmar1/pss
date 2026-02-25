@@ -1,6 +1,6 @@
 <div>
     <section class="footer-banner relative section-margin-t">
-        <img class="object-fit full-el" src="layout/images/footer-banner.jpg">
+        <img class="object-fit full-el" src="{{asset('home-assets/images/footer-banner.jpg')}}">
         <div class="bg full-el"></div>
         <div class="container relative white">
             <div class="box d-flex align-center space-between py-25 gap-30">
@@ -23,7 +23,7 @@
                     <div class="col1 pb-100 pb-25-p">
                         <div class="d-flex logo-foot-wrap">
                             <a href="#" class="footer-logo d-flex">
-                                <img src="layout/images/logo-white.svg" width="243" class=""/>
+                                <img src="{{asset('home-assets/images/logo-white.svg')}}" width="243" class=""/>
                             </a>
                         </div>
                         <p class="mo font-16 f-500 white pt-25">جمعية مرخصة، تحت قيد رقم ٢٥ / ج / أ ج . ث. ع./ 2002</p>

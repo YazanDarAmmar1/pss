@@ -24,6 +24,8 @@ class SliderResource extends Resource
     protected static ?string $pluralModelLabel = 'السلايدر';
     protected static ?string $navigationLabel = 'السلايدر';
     protected static ?string $model = Slider::class;
+    protected static string|null|\UnitEnum $navigationGroup = 'الإعدادات العامة';
+    protected static ?int $navigationSort = 4;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPhoto;
 

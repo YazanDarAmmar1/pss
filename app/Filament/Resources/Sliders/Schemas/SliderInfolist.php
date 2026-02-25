@@ -17,7 +17,8 @@ class SliderInfolist
                 TextEntry::make('description')
                     ->placeholder('-')
                     ->columnSpanFull(),
-                ImageEntry::make('image_path'),
+                ImageEntry::make('image_path')
+                    ->disk('public'),
                 IconEntry::make('status')
                     ->boolean(),
                 IconEntry::make('first_button_visibility')

@@ -11,7 +11,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        require_once base_path().'/app/Helper/HomeModals.php';
     }
 
     /**
@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        url()->defaults([
+            'locale' => app()->getLocale(),
+        ]);
     }
 }

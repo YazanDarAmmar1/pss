@@ -18,6 +18,12 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->timestamps();
         });
+
+        \App\Models\Category::create([
+            'name' => ['ar' => 'مشاريع موسمية', 'en' => 'Social Projects'],
+            'image_path' => '',
+            'description' => '',
+        ]);
     }
 
     /**
