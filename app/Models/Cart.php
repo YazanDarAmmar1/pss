@@ -13,4 +13,9 @@ class Cart extends Model
         return $this->hasMany(CartItem::class,'cart_id');
     }
 
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'cart_id', 'id');
+    }
+
 }

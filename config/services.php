@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+    'eazy_pay' => [
+        'app_id' => env('EAZY_PAY_APP_ID'),
+        'merchant_id' => env('EAZY_PAY_MERCHANT_ID'),
+        'secret_key' => env('EAZY_PAY_SECRET_KEY'),
+        'endpoint' => env('EAZY_PAY_ENDPOINT'),
+        'webhook_url' => env('EAZY_PAY_WEBHOOK_URL'),
+        'return_url' => env('EAZY_PAY_RETURN_URL'),
+    ],
+
 ];

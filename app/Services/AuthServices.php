@@ -30,7 +30,6 @@ class AuthServices
 
         if (Auth::guard('app')->attempt($validator->validated())) {
             (new CartService())->mergeSessionCartToUser(\auth('app')->user()->id, $currentSessionId);
-
             return [
                 'status' => true,
                 'redirect' => $redirectTo ?? route('profile'),
@@ -146,7 +145,6 @@ class AuthServices
             }
         );
     }
-
 
 
     public function verifyEmailOtp(string $email, string $otp): bool

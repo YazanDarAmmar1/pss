@@ -2,13 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8"/>
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-
-    <!-- الحل الأساسي لمنع /ar/livewire/update -->
-    <meta name="livewire:asset-url" content="{{ url('/') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <link rel="shortcut icon" href="{{asset('home-assets/image/favicon.ico')}}" type="image/x-icon">
     <title>Pss</title>
@@ -37,7 +31,7 @@
 <livewire:layouts.home.footer/>
 
 <button class="go-up-btn" go-up-btn>
-    <img src="{{asset('home-assets/images/arrow-up.svg')}}" width="34" />
+    <img src="{{asset('home-assets/images/arrow-up.svg')}}" width="34"/>
 </button>
 
 <script src="{{asset('home-assets/js/jquery.js')}}"></script>

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en']], function () {
 
     Route::get('/auth/logout', function () {
-        Auth::guard('web')->logout();
+        Auth::guard('app')->logout();
         return redirect(route('login'));
 
     })->name('user.auth.logout');
@@ -23,4 +23,5 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en']], functio
     Route::get('/projects/details/{no}', \App\Livewire\Home\Projects\Details::class)->name('projects.details');
     Route::get('/contact-us', \App\Livewire\Home\ContactUs::class)->name('contact-us');
     Route::get('/about-us', \App\Livewire\Home\AboutUs::class)->name('about-us');
+    Route::get('/checkout', App\Livewire\Home\Checkout\Index::class)->name('checkout');
 });
