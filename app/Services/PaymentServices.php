@@ -17,7 +17,8 @@ class PaymentServices
      */
     public function convertCartToInvoice()
     {
-        $cart = (new cartService())->getCart();
+        $cartService = new CartService();
+        $cart = $cartService->getCart();
 
         if ($cart->items()->count() === 0) {
             throw new \Exception("Cart is empty.");
