@@ -72,7 +72,7 @@
                             </div>
 
                             <div class="payment-tab" x-show="activeTab === 'tgl-new'" x-transition>
-                                <livewire:home.auth.register/>
+                                <livewire:home.auth.register :redirect="route('checkout')"/>
                             </div>
                         @endif
 
@@ -99,27 +99,33 @@
 
                                             <div class="inner-group form-group">
 
-                                                <p class="lbl mb-10 f-500 black font-20 font-18-p">
-                                                    جميع أنواع البطاقات
-                                                </p>
-
                                                 <div class="d-flex gap-15 wrap">
 
                                                     <label class="radio-control-img d-flex align-center gap-15">
-                                                        <input wire:model="payment_type" value="1" type="radio" name="payment"/>
+                                                        <input wire:model="payment_type" value="1" type="radio"
+                                                               name="payment"/>
                                                         <span class="dv flex-all gap-10">
-                                                            <img src="{{asset('home-assets/images/payment-card-1.svg')}}" width="59"/>
-                                                            <img src="{{asset('home-assets/images/payment-card-2.svg')}}" width="35"/>
-                                                            <img src="{{asset('home-assets/images/payment-card-3.svg')}}" width="68"/>
+                                                            <img
+                                                                src="{{asset('home-assets/images/payment-card-1.svg')}}"
+                                                                width="59"/>
+                                                            <img
+                                                                src="{{asset('home-assets/images/payment-card-2.svg')}}"
+                                                                width="35"/>
+                                                            <img
+                                                                src="{{asset('home-assets/images/payment-card-3.svg')}}"
+                                                                width="68"/>
                                                         </span>
                                                     </label>
 
-                                                    <label class="radio-control-img d-flex align-center gap-15">
-                                                        <input wire:model="payment_type" value="2" type="radio" name="payment"/>
-                                                        <span class="dv flex-all">
-                                                            <img src="{{asset('home-assets/images/payment-card-4.svg')}}" width="46"/>
-                                                        </span>
-                                                    </label>
+                                                    {{--                                                    <label class="radio-control-img d-flex align-center gap-15">--}}
+                                                    {{--                                                        <input wire:model="payment_type" value="2" type="radio"--}}
+                                                    {{--                                                               name="payment"/>--}}
+                                                    {{--                                                        <span class="dv flex-all">--}}
+                                                    {{--                                                            <img--}}
+                                                    {{--                                                                src="{{asset('home-assets/images/payment-card-4.svg')}}"--}}
+                                                    {{--                                                                width="46"/>--}}
+                                                    {{--                                                        </span>--}}
+                                                    {{--                                                    </label>--}}
 
                                                 </div>
 
@@ -154,47 +160,7 @@
 
                 <!-- #left -->
                 <div class="left-side w-35 w-100-p">
-
-                    <div class="left-box bg-secondary p-32 border-red radius-24">
-
-                        <div class="left-box-hd pb-15 d-flex space-between">
-                            <p class="black bold font-20">ملخص التبرع</p>
-                            <a href="#" class="btn btn-primary">تعديل</a>
-                        </div>
-
-                        <p class="black f-600 font-16 pb-15">1 تبرعات</p>
-
-                        <div class="black f-600 font-16 d-flex align-center space-between gap-10 wrap pb-15">
-                            <p>إجمالي التبرعات</p>
-                            <p class="bold font-20">50 BHD</p>
-                        </div>
-
-                        <div class="cart-itms-payment">
-
-                            <div class="itm py-15 d-flex align-center gap-15">
-
-                                <figure class="flex-all shrink-0">
-                                    <img src="layout/images/cart.svg" width="40"/>
-                                </figure>
-
-                                <div>
-                                    <p class="text-grad bold font-16 pb-5">
-                                        تهيئة المنازل لكبار السن
-                                    </p>
-                                    <p class="text-grad bold">50 BHD</p>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="ttls pt-15 d-flex space-between gap-10 wrap">
-                            <span class="bold font-18">المجموع</span>
-                            <span class="bold font-20">50 BHD</span>
-                        </div>
-
-                    </div>
-
+                    <livewire:home.checkout.donation-summary/>
                 </div>
                 <!-- ##left -->
 

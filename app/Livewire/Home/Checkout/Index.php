@@ -35,7 +35,6 @@ class Index extends Component
                         'ALL'
                     ]);
                     $pay = $pay->generatePaymentUrl();
-                    dd($pay);
                     if ($pay['status']) {
                         return redirect($pay['transaction']->payment_url);
                     } else {

@@ -8,19 +8,25 @@ use Livewire\Component;
 
 class CartIndex extends Component
 {
-    #[On('cart-updated')]
-    public function resolveParams()
+    public $cartItems = [];
+    public $cartTotal = 0;
+
+    public function mount(CartService $cartService)
     {
-        $this->dispatch('$refresh');
+        $this->loadCart($cartService);
     }
 
-    public function render(CartService $cartService)
+    #[On('cart-updated')]
+    public function loadCart(CartService $cartService)
     {
         $data = $cartService->all();
+        $this->cartItems = $data['items'];
+        $this->cartTotal = $data['total'];
+    }
 
-        return view('livewire.home.cart.cart-index', [
-            'cartItems' => $data['items'],
-            'cartTotal' => $data['total'],
-        ]);
+
+    public function render()
+    {
+        return view('livewire.home.cart.cart-index');
     }
 }

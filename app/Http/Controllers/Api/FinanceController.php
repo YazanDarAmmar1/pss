@@ -17,9 +17,8 @@ class FinanceController extends Controller
     public function eazyPayCallback(Request $request)
     {
         info('========== EAZY WEBHOOK ==========');
-        info($request);
 
-        $rules = [
+        $validator = \Validator::make($request->all(), [
             "globalTransactionsId" => 'required',
             "transactionsId" => 'required',
             "invoiceId" => 'required',
@@ -39,99 +38,66 @@ class FinanceController extends Controller
             "dccUptake" => 'nullable',
             "dccCcy" => 'nullable',
             "dccAmount" => 'nullable',
-            "dccReceiptText" => 'nullable'
+            "dccReceiptText" => 'nullable',
+        ]);
 
-        ];
-
-        $validator = \Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return $validator->errors();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
-        $validated_data = $validator->validated();
 
-        $global_transaction_id = Arr::get($validated_data, 'globalTransactionsId');
-        $transaction_id = Arr::get($validated_data, 'transactionsId');
-        $invoice_id = Arr::get($validated_data, 'invoiceId');
-        $currency = Arr::get($validated_data, 'currency');
-        $amount = Arr::get($validated_data, 'amount');
-        $is_paid = Arr::get($validated_data, 'isPaid');
-        $paid_on = Arr::get($validated_data, 'paidOn');
-        $eazy_payment_method = Arr::get($validated_data, 'paymentMethod');
-        $user_token = Arr::get($validated_data, 'userToken');
-        $status = Arr::get($validated_data, 'status');
-        $auth_code = Arr::get($validated_data, 'authCode');
-        $gateway_code = Arr::get($validated_data, 'gatewayCode');
-        $auth_resp_code = Arr::get($validated_data, 'authRespCode');
-        $error_message = Arr::get($validated_data, 'errorMessage');
-        $error_code = Arr::get($validated_data, 'errorCode');
-        $payment_id = Arr::get($validated_data, 'paymentId');
-        $dcc_uptake = Arr::get($validated_data, 'dccUptake');
-        $dcc_ccy = Arr::get($validated_data, 'dccCcy');
-        $dcc_amount = Arr::get($validated_data, 'dccAmount');
-        $dcc_receipt_text = Arr::get($validated_data, 'dccReceiptText');
+        $validated = $validator->validated();
 
+        $globalTransactionId = Arr::get($validated, 'globalTransactionsId');
+        $isPaid = Arr::get($validated, 'isPaid');
+        $eazyPaymentMethod = Arr::get($validated, 'paymentMethod');
 
         try {
+            $transaction = PaymentTransaction::where('global_transaction_id', $globalTransactionId)->first();
 
-
-            if ($global_transaction_id) {
-
-                $transaction = PaymentTransaction::where('global_transaction_id', $global_transaction_id)->first();
-                if ($transaction) {
-
-
-                    // start Eazy
-
-                    $eazy_timestamp = $request->header('Eazy-Timestamp');
-                    $eazy_signature = $request->header('Eazy-Signature');
-                    $eazy_nonce = $request->header('Eazy-Nonce');
-
-
-                    if ($eazy_timestamp
-                        && $eazy_signature
-                        && $eazy_nonce
-                    ) {
-                        $msg = $eazy_timestamp
-                            . $eazy_nonce
-                            . $global_transaction_id
-                            . $is_paid;
-
-                        if (Str::lower($eazy_signature) == Str::lower(hash_hmac(
-                                algo: 'sha256',
-                                data: $msg,
-                                key: env('EAZY_PAY_SECRET_KEY')))
-                        ) {
-
-
-                            if ($is_paid == 1) {
-
-                                $payment_method = PaymentMethods::MASTERCARD->value;
-                                if ($eazy_payment_method == 'Apple Pay') {
-                                    $payment_method = PaymentMethods::APPLE->value;
-                                }
-
-                                if ($transaction->changeStatus(PaymentStatus::Paid->value)) {
-                                    $receipt = $transaction->makeReceipt($payment_method);
-                                    event(new ReceiptCreated($receipt));
-                                }
-
-                            } else {
-                                $transaction->changeStatus(PaymentStatus::Failed->value);
-                            }
-                        } else {
-                            info('=====----- Invalid EAZY SIGN -----=====');
-                            $transaction->changeStatus(PaymentStatus::Invalid->value);
-                        }
-                    } else {
-                        $transaction->changeStatus(PaymentStatus::Error->value);
-                    }
-                } else {
-                    $transaction->changeStatus(PaymentStatus::Error->value);
-                }
+            if (!$transaction) {
+                info('Transaction not found: ' . $globalTransactionId);
+                return response()->json(['message' => 'Transaction not found'], 404);
             }
+
+            // التحقق من headers الأمان
+            $eazyTimestamp = $request->header('Eazy-Timestamp');
+            $eazySignature = $request->header('Eazy-Signature');
+            $eazyNonce = $request->header('Eazy-Nonce');
+
+            if (!$eazyTimestamp || !$eazySignature || !$eazyNonce) {
+                info('Missing Eazy security headers');
+                $transaction->changeStatus(PaymentStatus::Error->value);
+                return response()->json(['message' => 'Missing security headers'], 400);
+            }
+
+            // التحقق من التوقيع
+            $msg = $eazyTimestamp . $eazyNonce . $globalTransactionId . $isPaid;
+            $expectedSignature = hash_hmac('sha256', $msg, config('services.eazy_pay.secret_key'));
+
+            if (!hash_equals(Str::lower($expectedSignature), Str::lower($eazySignature))) {
+                info('Invalid Eazy Signature for transaction: ' . $globalTransactionId);
+                $transaction->changeStatus(PaymentStatus::Invalid->value);
+                return response()->json(['message' => 'Invalid signature'], 401);
+            }
+
+            // معالجة نتيجة الدفع
+            if ($isPaid == 1) {
+                $paymentMethod = $eazyPaymentMethod === 'Apple Pay'
+                    ? PaymentMethods::APPLE->value
+                    : PaymentMethods::MASTERCARD->value;
+
+                if ($transaction->changeStatus(PaymentStatus::Paid->value)) {
+                    $transaction->makeReceipt($paymentMethod);
+                }
+            } else {
+                $transaction->changeStatus(PaymentStatus::Failed->value);
+            }
+
+            return response()->json(['message' => 'Processed successfully'], 200);
+
         } catch (\Exception $e) {
-            info($e->getMessage());
-            return $e->getMessage();
+            info('EazyPay callback error: ' . $e->getMessage());
+            return response()->json(['message' => 'Server error'], 500);
         }
     }
 

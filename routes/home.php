@@ -24,4 +24,5 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en']], functio
     Route::get('/contact-us', \App\Livewire\Home\ContactUs::class)->name('contact-us');
     Route::get('/about-us', \App\Livewire\Home\AboutUs::class)->name('about-us');
     Route::get('/checkout', App\Livewire\Home\Checkout\Index::class)->name('checkout');
+    Route::get('/cart', App\Livewire\Home\Cart\CartUpdate::class)->name('cart');
 });

@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\UserPaymentDone;
+use App\Listeners\freshProjectTotals;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Event;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        require_once base_path().'/app/Helper/HomeModals.php';
+        require_once base_path() . '/app/Helper/HomeModals.php';
     }
 
     /**
@@ -22,5 +25,9 @@ class AppServiceProvider extends ServiceProvider
         url()->defaults([
             'locale' => app()->getLocale(),
         ]);
+        Event::listen(
+            UserPaymentDone::class,
+            [freshProjectTotals::class, 'handle']
+        );
     }
 }

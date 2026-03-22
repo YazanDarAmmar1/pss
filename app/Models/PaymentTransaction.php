@@ -39,7 +39,6 @@ class PaymentTransaction extends Model
     }
 
 
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(AppUser::class, 'user_id');
@@ -50,4 +49,20 @@ class PaymentTransaction extends Model
         return $this->belongsTo(Invoice::class, 'invoice_id');
     }
 
+    public function makeReceipt(string $paymentMethod): Receipt
+    {
+        $existing = Receipt::where('payment_transaction_id', $this->id)->first();
+        if ($existing) {
+            return $existing;
+        }
+
+        return Receipt::create([
+            'app_user_id' => $this->user_id,
+            'invoice_id' => $this->invoice_id,
+            'payment_transaction_id' => $this->id,
+            'amount' => $this->amount,
+            'payment_method' => $paymentMethod,
+            'date' => $this->created_at->format('Y-m-d'),
+        ]);
+    }
 }

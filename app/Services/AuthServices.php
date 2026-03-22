@@ -3,6 +3,7 @@
 namespace App\Services;
 
 
+use App\Models\AppUser;
 use App\Models\AppUser as User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -46,10 +47,11 @@ class AuthServices
     {
         $validator = Validator::make($data, [
             'name' => 'required|string|min:3',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:app_users,email',
             'phone' => 'required',
             'password' => 'required|min:8|confirmed',
             'otp' => 'required',
+            'country_id' => 'required|exists:countries,id'
         ]);
 
         if ($validator->fails()) {
@@ -64,21 +66,20 @@ class AuthServices
             ]);
         }
 
-        // حذف OTP بعد الاستخدام
         Cache::forget('email_otp_' . $validated['email']);
 
-        $user = User::create([
+        $user = AppUser::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
             'password' => Hash::make($validated['password']),
+            'country_id' => $validated['country_id'],
         ]);
-
-        Auth::login($user);
 
         return [
             'status' => true,
-            'redirect' => $redirectTo ?? route('user.dashboard'),
+            'user' => $user,
+            'redirect' => $redirectTo ?? request()->url(),
             'message' => 'تم إنشاء الحساب بنجاح.',
         ];
     }

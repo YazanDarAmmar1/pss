@@ -8,20 +8,17 @@
                 </div>
                 <span class="cart-badge rounded bold flex-all">0</span>
             </div>
-            <button class="cls-modal flex-all btn-0" close-modal="cart-modal">
-                <img src="{{asset('home-assets/images/close.svg')}}" width="32" height="32">
-            </button>
         </div>
 
         <div class="flex-all xxx mb-15">
-            <img src="{{asset('home-assets/images/empty-cart.png')}}" width="212" />
+            <img src="{{asset('home-assets/images/empty-cart.png')}}" width="212"/>
         </div>
         <p class="cc center f-500 font-24 pb-30">سلة التبرع فارغة، لم يتم إضافة أي مشروع بعد</p>
         <div class="actions flex-all pb-25-p">
-            <button class="btn btn-primary img-inside w-100">
+            <a href="{{route('projects')}}" class="btn btn-primary img-inside w-100">
                 تصفح المشاريع للتبرع
-                <img class="flip-en" src="{{asset('home-assets/images/arrow-left.svg')}}" />
-            </button>
+                <img class="flip-en" src="{{asset('home-assets/images/arrow-left.svg')}}"/>
+            </a>
         </div>
 
     </div>
