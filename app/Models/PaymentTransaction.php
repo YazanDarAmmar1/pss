@@ -25,7 +25,9 @@ class PaymentTransaction extends Model
         'status',
         'email_sent_count',
         'last_email_sent_at',
-        'created_at'
+        'created_at',
+        'email_sent_count',
+        'last_email_sent_at'
     ];
 
     public static function boot()
@@ -64,5 +66,15 @@ class PaymentTransaction extends Model
             'payment_method' => $paymentMethod,
             'date' => $this->created_at->format('Y-m-d'),
         ]);
+    }
+
+    public function scopePaid($query)
+    {
+        return $query->where('status', PaymentStatus::Paid->value);
+    }
+
+    public function scopeFailed($query)
+    {
+        return $query->where('status', PaymentStatus::Failed->value);
     }
 }

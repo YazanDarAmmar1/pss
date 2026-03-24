@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Home\Checkout;
 
-use App\Repository\EazyPayCore;
+use App\Services\EazyPayCore;
 use App\Services\PaymentServices;
 use Livewire\Component;
 

@@ -1,6 +1,10 @@
 <?php
 
+use App\Enums\PaymentStatus;
+use App\Models\PaymentTransaction;
 use Illuminate\Support\Facades\Route;
+
+
 
 Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en']], function () {
 
@@ -23,6 +27,8 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en']], functio
     Route::get('/projects/details/{no}', \App\Livewire\Home\Projects\Details::class)->name('projects.details');
     Route::get('/contact-us', \App\Livewire\Home\ContactUs::class)->name('contact-us');
     Route::get('/about-us', \App\Livewire\Home\AboutUs::class)->name('about-us');
-    Route::get('/checkout', App\Livewire\Home\Checkout\Index::class)->name('checkout');
+    Route::get('/checkout', App\Livewire\Home\Checkout\Index::class)->name('checkout')->middleware('cartHasItems');
     Route::get('/cart', App\Livewire\Home\Cart\CartUpdate::class)->name('cart');
+    Route::get('/success/{transaction}', App\Livewire\Home\SuccessPayment::class)->name('success-payment');
+    Route::get('/failed/{transaction}', App\Livewire\Home\FailedPayment::class)->name('failed-payment');
 });
