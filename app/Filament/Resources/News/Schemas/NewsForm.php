@@ -31,7 +31,7 @@ class NewsForm
                     FileUpload::make('image_path')
                         ->label('الصورة البارزة')
                         ->image()
-                        ->disk('public')
+                        ->disk('files')
                         ->directory('news')
                         ->required(),
 

@@ -19,8 +19,8 @@ class BoardMemberForm
                 ->label('المنصب'),
                 FileUpload::make('image_path')
                     ->label('الصورة الخارجية')
-                    ->disk('public')
-                    ->directory('projects')
+                    ->disk('files')
+                    ->directory('members')
                     ->required()
                     ->columnSpanFull()
                     ->image(),

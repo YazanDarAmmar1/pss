@@ -15,7 +15,7 @@
                     <span class="bg pointer-none full-el radius-24"></span>
                     <div class="up relative">
                         <figure class="fig d-flex pb-15">
-                            <img src="{{ asset('storage/' . $category->image_path) }}" class="object-fit radius-24" width="100%" height="207" />
+                            <img src="{{ asset($category->image_path) }}" class="object-fit radius-24" width="100%" height="207" />
                         </figure>
                         <p class="cz center title-28">{{$category->name}}</p>
                     </div>

@@ -49,15 +49,15 @@ class BookForm
                             ->schema([
                                 FileUpload::make('image_path')
                                     ->label('صورة الكتاب')
-                                    ->disk('public')
+                                    ->disk('files')
                                     ->directory('books')
                                     ->image()
                                     ->required(),
 
                                 FileUpload::make('book_file_path')
                                     ->label('ملف الكتاب')
-                                    ->disk('public')
-                                    ->directory('books')
+                                    ->disk('files')
+                                    ->directory('book_files')
                                     ->acceptedFileTypes(['application/pdf'])
                                     ->required(),
                             ])

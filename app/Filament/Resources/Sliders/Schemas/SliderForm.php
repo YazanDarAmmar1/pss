@@ -33,7 +33,7 @@ class SliderForm
                         FileUpload::make('image_path')
                             ->label('الصورة البارزة')
                             ->image()
-                            ->disk('public')
+                            ->disk('files')
                             ->directory('sliders')
                             ->visibility('public')
                             ->columnSpanFull()
