@@ -41,7 +41,7 @@ class Receipt extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(AppUser::class, 'user_id');
+        return $this->belongsTo(AppUser::class, 'app_user_id');
     }
 
     public function invoice(): BelongsTo
