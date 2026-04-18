@@ -21,7 +21,7 @@ Route::match(['get', 'post'], 'callback', function () {
     $transaction = PaymentTransaction::where('global_transaction_id', $globalTransactionId)->first();
 
     if (!$transaction) {
-        return redirect()->route('home');
+        return redirect()->route('home',['locale' => $locale]);
     }
 
     if ($transaction->status?->value === PaymentStatus::Paid->value) {
