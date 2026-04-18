@@ -31,3 +31,14 @@ Route::match(['get', 'post'], 'callback', function () {
 })->name('payment.callback');
 
 
+Route::fallback(function () {
+    $locale = session('locale', 'ar');
+    $path = request()->path();
+
+    if ($path && !in_array(explode('/', $path)[0], ['ar', 'en'])) {
+        return redirect("/{$locale}/{$path}");
+    }
+
+    return redirect("/{$locale}");
+});
+
