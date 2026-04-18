@@ -19,10 +19,9 @@ Route::fallback(function () {
 
 Route::get('/callback', function () {
     $globalTransactionId = request('globalTransactionsId');
-    info($globalTransactionId);
+
     if ($globalTransactionId) {
         $transaction = PaymentTransaction::where('global_transaction_id', $globalTransactionId)->first();
-        info($transaction);
 
         if ($transaction) {
             if ($transaction->status === PaymentStatus::Paid->value) {
