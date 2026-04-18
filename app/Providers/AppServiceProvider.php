@@ -22,9 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        url()->defaults([
-            'locale' => app()->getLocale(),
-        ]);
+
         Event::listen(
             UserPaymentDone::class,
             [freshProjectTotals::class, 'handle']
