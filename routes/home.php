@@ -23,7 +23,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en']], functio
     Route::get('/news', \App\Livewire\Home\News\Index::class)->name('news');
     Route::get('/news-details/{news_id}', \App\Livewire\Home\Components\NewsDetailsPage::class)->name('news.details');
     Route::get('/library', \App\Livewire\Home\Library\Index::class)->name('library');
-    Route::get('/projects', \App\Livewire\Home\Projects\Index::class)->name('projects');
+    Route::get('/projects/{selected_category?}', \App\Livewire\Home\Projects\Index::class)->name('projects');
     Route::get('/projects/details/{no}', \App\Livewire\Home\Projects\Details::class)->name('projects.details');
     Route::get('/contact-us', \App\Livewire\Home\ContactUs::class)->name('contact-us');
     Route::get('/about-us', \App\Livewire\Home\AboutUs::class)->name('about-us');
