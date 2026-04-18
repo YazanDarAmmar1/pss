@@ -68,6 +68,7 @@ class EazyPayCore
             'webhookUrl' => $this->webhookUrl,
             'returnUrl' => config('services.eazy_pay.return_url'),
         ];
+        info(config('services.eazy_pay.return_url'));
         Log::info('EazyPay Request', [
             'headers' => [
                 'Secret-Hash' => $secretHash,

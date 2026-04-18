@@ -6,7 +6,7 @@ use App\Models\PaymentTransaction;
 use Illuminate\Support\Facades\Route;
 
 Route::match(['get', 'post'], 'callback', function () {
-
+    sleep(5);
     $globalTransactionId = request('globalTransactionsId');
     info($globalTransactionId);
 
