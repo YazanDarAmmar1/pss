@@ -26,20 +26,3 @@ Route::match(['get', 'post'], 'callback/{globalTransactionsId}', function () {
 
     return redirect()->route('failed-payment', $transaction->no);
 })->name('payment.callback');
-
-
-Route::fallback(function () {
-    $locale = session('locale', 'ar');
-    $path = request()->path();
-
-    $excluded = ['callback'];
-    if (in_array($path, $excluded)) {
-        abort(404);
-    }
-
-    if ($path && !in_array(explode('/', $path)[0], ['ar', 'en'])) {
-        return redirect("/{$locale}/{$path}");
-    }
-
-    return redirect("/{$locale}");
-});
