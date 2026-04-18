@@ -23,10 +23,10 @@ Route::match(['get', 'post'], 'callback/{globalTransactionsId}', function ($glob
     }
 
     if ($transaction->status?->value === PaymentStatus::Paid->value) {
-        return redirect()->route('success-payment', ['locale' => $locale, 'no' => $transaction->no]);
+        return redirect()->route('success-payment', ['locale' => $locale, 'transaction' => $transaction->no]);
     }
 
-    return redirect()->route('failed-payment', ['locale' => $locale, 'no' => $transaction->no]);
+    return redirect()->route('failed-payment', ['locale' => $locale, 'transaction' => $transaction->no]);
 })->name('payment.callback');
 
 
