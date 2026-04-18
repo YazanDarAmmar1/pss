@@ -10,7 +10,7 @@ class CategoryPage extends Component
     public $categories;
     public function mount()
     {
-        $this->categories = Category::active()->get();
+        $this->categories = Category::active()->limit(4)->get();
     }
     public function render()
     {
