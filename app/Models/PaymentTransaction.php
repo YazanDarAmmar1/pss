@@ -77,4 +77,10 @@ class PaymentTransaction extends Model
     {
         return $query->where('status', PaymentStatus::Failed->value);
     }
+
+    public function changeStatus($status)
+    {
+        $this->status = $status;
+        $this->save();
+    }
 }
