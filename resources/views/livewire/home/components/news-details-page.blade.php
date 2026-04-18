@@ -54,7 +54,7 @@
                     </div>
 
                     <figure class="ff d-flex pb-40">
-                        <img src="{{asset('storage/'.$news->image_path)}}" height="393" width="100%" class="object-fit radius-24" />
+                        <img src="{{asset($news->image_path)}}" height="393" width="100%" class="object-fit radius-24" />
                     </figure>
                     <div class="desc">
                         <div class="cntnt pb-40">
@@ -105,7 +105,7 @@
                     <a href="{{route('news.details', $item->id)}}" class="related_news trans p-24 bg-white radius-24 gap-25 d-flex flex-column space-between">
                         <div class="u">
                             <figure class="dd relative d-flex mb-25">
-                                <img src="{{asset('storage/'. $item->image_path)}}" width="100%" height="169" class="object-fit radius-12" />
+                                <img src="{{asset($item->image_path)}}" width="100%" height="169" class="object-fit radius-12" />
                             </figure>
                             <p class="t1 main-color bold two-line">{{$item->name}}</p>
                             <p class="d44 gray-4 font-15 pt-10 one-line">

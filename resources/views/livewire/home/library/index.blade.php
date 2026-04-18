@@ -43,10 +43,10 @@
                     @foreach($this->books as $book_index => $book)
                     <div class="library_item_wrapper">
 
-                    <a href="{{ asset('storage/' . $book->book_file_path) }}" target="_blank" class="library_item box_hover overflow-hidden h-100 radius-12 bg-white d-flex flex-column space-between gap-25">
+                    <a href="{{ asset($book->book_file_path) }}" target="_blank" class="library_item box_hover overflow-hidden h-100 radius-12 bg-white d-flex flex-column space-between gap-25">
                             <div class="xx d-flex flex-column gap-15 h-100">
                                 <figure class="fig d-flex relative">
-                                    <img src="{{asset('storage/'. $book->image_path)}}" class="object-fit w-100 img trans" width="100%" height="231">
+                                    <img src="{{asset($book->image_path)}}" class="object-fit w-100 img trans" width="100%" height="231">
                                     <div class="fff full-el d-flex align-end pb-15 px-15">
                                         <p class="lq bg-secondary main-color bold font-16 py-10 px-25 radius-30">{{$book->bookCategory?->name}}</p>
                                     </div>
@@ -88,15 +88,9 @@
             </div>
 
             <!-- #pagination -->
-            <div class="pagination wrap flex-all gap-15 pt-40 pt-30-p">
-                <a href="#" class="btn-0 pagination-arr flex-all disabled"><img class="flip-ar" src="layout/images/chev-left.svg" width="20" height="20"></a>
-                <a href="#" class="pagination-item flex-all active">1</a>
-                <a href="#" class="pagination-item flex-all">2</a>
-                <a href="#" class="pagination-item flex-all">3</a>
-                <a href="#" class="pagination-item flex-all">4</a>
-                <a href="#" class="pagination-item flex-all">5</a>
-                <a href="#" class="btn-0 pagination-arr flex-all"><img class="flip-en" src="layout/images/chev-left.svg" width="20" height="20"></a>
-            </div>
+            @if($this->books)
+                {{$this->books->links('vendor.livewire.custom-pagination')}}
+            @endif
             <!-- ##pagination -->
         </div>
     </section>

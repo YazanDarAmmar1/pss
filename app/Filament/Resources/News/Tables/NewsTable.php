@@ -20,7 +20,7 @@ class NewsTable
                 ImageColumn::make('image_path')
                     ->label('')
                     ->circular()
-                    ->disk('public'),
+                    ->disk('files'),
                 TextColumn::make('name')
                     ->label('العنوان')
                     ->searchable(),

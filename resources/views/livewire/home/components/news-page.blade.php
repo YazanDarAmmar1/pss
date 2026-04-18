@@ -18,7 +18,7 @@
                     <a href="{{route('news.details', $firstNews->id)}}"
                        class="item item-1 pb-40 d-flex flex-column-p gap-50 gap-40-p body-color">
                         <figure class="fig d-flex shrink-0 w-50 w-100-p">
-                            <img src="{{ asset('storage/' . $firstNews->image_path) }}" class="object-fit radius-24"
+                            <img src="{{ asset($firstNews->image_path) }}" class="object-fit radius-24"
                                  width="100%" height="297"/>
                         </figure>
                         <div class="lft-side pt-25 w-47 w-100-p">

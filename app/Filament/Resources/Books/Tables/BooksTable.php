@@ -18,7 +18,7 @@ class BooksTable
             ->columns([
                 ImageColumn::make('image_path')
                     ->label('')
-                    ->disk('public')
+                    ->disk('files')
                     ->imageHeight(40)
                     ->circular(),
                 TextColumn::make('name')

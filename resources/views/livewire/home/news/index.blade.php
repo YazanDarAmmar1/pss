@@ -32,7 +32,7 @@
                         <a href="{{route('news.details', $new->id)}}" class="news_item border-red radius-12 p-32 px-p d-flex gap-40 flex-column-p gap-40 bg-white">
                             <!-- #right -->
                             <div class="right d-flex align-self shrink-0 w-100-p relative" style="width: 348px;">
-                                <img src="{{ asset('storage/' . $new->image_path) }}" class="object-fit radius-12 img w-100" width="270" height="295">
+                                <img src="{{ asset($new->image_path) }}" class="object-fit radius-12 img w-100" width="270" height="295">
                             </div>
                             <!-- ##right -->
                             <!-- #left -->
@@ -66,15 +66,9 @@
                 <!-- ##wrapper -->
 
                 <!-- #pagination -->
-                <div class="pagination wrap flex-all gap-15 pt-40 pt-30-p">
-                    <a href="#" class="btn-0 pagination-arr flex-all disabled"><img class="flip-ar" src="layout/images/chev-left.svg" width="20" height="20"></a>
-                    <a href="#" class="pagination-item flex-all active">1</a>
-                    <a href="#" class="pagination-item flex-all">2</a>
-                    <a href="#" class="pagination-item flex-all">3</a>
-                    <a href="#" class="pagination-item flex-all">4</a>
-                    <a href="#" class="pagination-item flex-all">5</a>
-                    <a href="#" class="btn-0 pagination-arr flex-all"><img class="flip-en" src="layout/images/chev-left.svg" width="20" height="20"></a>
-                </div>
+                @if($news)
+                    {{$news->links('vendor.livewire.custom-pagination')}}
+                @endif
                 <!-- ##pagination -->
 
             </div>

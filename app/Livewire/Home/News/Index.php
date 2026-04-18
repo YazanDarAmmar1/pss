@@ -8,11 +8,12 @@ use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
 
     public function render()
     {
-        return view('livewire.home.news.index',[
-        'news' => News::Active()->paginate(10)
+        return view('livewire.home.news.index', [
+            'news' => News::Active()->paginate(10)
         ])->layout('layouts.app');
     }
 }

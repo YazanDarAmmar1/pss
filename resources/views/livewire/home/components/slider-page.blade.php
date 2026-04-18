@@ -7,7 +7,7 @@
                         <div class="containerxxx relative h-100">
                             <!-- #box -->
                             <div class="box radius-24 relative pt-40 pb-60 d-flex align-center h-100 radius-16-p overflow-hidden">
-                                <img src="{{ asset('storage/' . $slider->image_path) }}" class="object-fit full-el" />
+                                <img src="{{ asset($slider->image_path) }}" class="object-fit full-el" />
                                 <span class="bg full-el"></span>
                                 <!-- <span class="full-el bg"></span> -->
                                 <!-- #in -->
@@ -20,7 +20,7 @@
                                         @if($slider->first_button_visibility)
                                             <a href="{{$slider->first_button_link}}" class="btn b1">{{$slider->first_button_text}}</a>
                                         @endif
-                                        @if($slider->first_button_visibility)
+                                        @if($slider->secound_button_visibility)
                                             <a href="{{$slider->second_button_link}}" class="btn btn-outline no-wrap">{{$slider->second_button_text}}</a>
                                         @endif
                                     </div>

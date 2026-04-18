@@ -150,7 +150,7 @@
                             <!-- #item -->
                             <div class="itm p-16 trans">
                                 <figure class="fg flex-all mb-10">
-                                    <img class="mm placegol rounded" src="{{asset('storage/'.$member->image_path)}}" width="100" height="100" />
+                                    <img class="mm placegol rounded" src="{{asset($member->image_path)}}" width="100" height="100" />
                                 </figure>
                                 <p class="cz bold font-24">{{$member->name}}</p>
                                 <p class="cc pt-5 font-18">{{$member->position}}</p>
