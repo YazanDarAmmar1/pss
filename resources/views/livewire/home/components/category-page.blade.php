@@ -11,7 +11,7 @@
         <div class="box grid-4 grid-2-t grid-1-p gap-40 pt-25 container-left-p">
             @foreach($categories as $category)
                 <!-- #itm -->
-                <a href="#" class="itm px-15 body-color py-25 relative d-flex gap-30 flex-column space-between radius-24 trans">
+                <a href="projects/selected_category={{$category->id}}" class="itm px-15 body-color py-25 relative d-flex gap-30 flex-column space-between radius-24 trans">
                     <span class="bg pointer-none full-el radius-24"></span>
                     <div class="up relative">
                         <figure class="fig d-flex pb-15">
