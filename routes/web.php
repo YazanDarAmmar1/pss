@@ -3,28 +3,30 @@
 use App\Enums\PaymentStatus;
 use App\Models\PaymentTransaction;
 use Illuminate\Support\Facades\Route;
-
-
-Route::match(['get', 'post'], 'callback', function () {
+Route::match(['get', 'post'], 'callback/{globalTransactionsId}', function ($globalTransactionsId) {
     sleep(5);
-    $globalTransactionId = request('globalTransactionsId');
-    info('Callback hit: ' . $globalTransactionId);
 
-    if (!$globalTransactionId) {
-        return redirect()->route('home');
+    $locale = session('locale', 'ar');
+    app()->setLocale($locale);
+
+    info('Callback hit - globalTransactionId: ' . ($globalTransactionsId ?? 'NULL'));
+
+    if (!$globalTransactionsId) {
+        return redirect()->route('home', ['locale' => $locale]);
     }
 
-    $transaction = PaymentTransaction::where('global_transaction_id', $globalTransactionId)->first();
+    $transaction = PaymentTransaction::where('global_transaction_id', $globalTransactionsId)->first();
+    info($transaction);
 
     if (!$transaction) {
-        return redirect()->route('home');
+        return redirect()->route('home', ['locale' => $locale]);
     }
 
     if ($transaction->status?->value === PaymentStatus::Paid->value) {
-        return redirect()->route('success-payment', $transaction->no);
+        return redirect()->route('success-payment', ['locale' => $locale, 'no' => $transaction->no]);
     }
 
-    return redirect()->route('failed-payment', $transaction->no);
+    return redirect()->route('failed-payment', ['locale' => $locale, 'no' => $transaction->no]);
 })->name('payment.callback');
 
 
