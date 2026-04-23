@@ -18,7 +18,7 @@ class SliderInfolist
                     ->placeholder('-')
                     ->columnSpanFull(),
                 ImageEntry::make('image_path')
-                    ->disk('public'),
+                    ->disk('files'),
                 IconEntry::make('status')
                     ->boolean(),
                 IconEntry::make('first_button_visibility')
