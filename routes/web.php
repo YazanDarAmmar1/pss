@@ -4,7 +4,7 @@ use App\Enums\PaymentStatus;
 use App\Models\PaymentTransaction;
 use Illuminate\Support\Facades\Route;
 Route::match(['get', 'post'], 'callback/{globalTransactionsId}', function ($globalTransactionsId) {
-    sleep(5);
+    sleep(2);
 
     $locale = session('locale', 'ar');
     app()->setLocale($locale);

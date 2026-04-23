@@ -23,3 +23,4 @@ class ListBankAccounts extends ListRecords
         ];
     }
 }
+

@@ -35,7 +35,6 @@ class SliderForm
                             ->image()
                             ->disk('files')
                             ->directory('sliders')
-                            ->visibility('public')
                             ->columnSpanFull()
                             ->required(),
 
