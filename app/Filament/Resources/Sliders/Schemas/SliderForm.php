@@ -34,6 +34,7 @@ class SliderForm
                             ->label('الصورة البارزة')
                             ->image()
                             ->disk('files')
+                            ->directory('sliders')
                             ->columnSpanFull()
                             ->required(),
 
