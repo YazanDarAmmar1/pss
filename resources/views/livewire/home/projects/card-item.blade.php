@@ -3,7 +3,7 @@
     <div class="project_item border-red h-100 p-16 radius-12 bg-white d-flex flex-column space-between gap-25">
         <div class="proj_up d-flex flex-column gap-15 h-100">
             <figure class="fig d-flex relative">
-                <img src="{{asset('storage/' . $project->image_path)}}" class="object-fit w-100 img trans radius-12" width="100%" height="156">
+                <img src="{{asset($project->image_path)}}" class="object-fit w-100 img trans radius-12" width="100%" height="156">
                 <div class="fff full-el d-flex align-end pb-15 px-15">
                     <p class="lq bg-white main-color bold font-16 py-10 px-25 radius-30">{{$project->category?->name}}</p>
                 </div>
