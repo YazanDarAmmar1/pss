@@ -18,6 +18,9 @@ class SetLocale
             app()->setLocale(session('locale', 'ar'));
         }
 
+        // أضف هذا هنا
+        url()->defaults(['locale' => app()->getLocale()]);
+
         return $next($request);
     }
 }
