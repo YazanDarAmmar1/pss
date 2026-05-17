@@ -84,4 +84,13 @@ class Project extends Model
             return asset('storage/' . $this->image_path);
         }
     }
+
+    public function getPublishedUrlAttribute()
+    {
+        $published_url = '#';
+        if ($this->no) {
+            $published_url = route('projects.details', $this->no);
+        }
+        return $published_url;
+    }
 }

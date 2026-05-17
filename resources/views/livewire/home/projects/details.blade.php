@@ -75,8 +75,8 @@
                                     </p>
 
                                     <div class="share-action-svg pointer flex-all"
-                                         share="link_url_here"
-                                         share-title="share_title_here"
+                                         share="{{$project->published_url}}"
+                                         share-title="{{$project->name}}"
                                          data-toggle="tooltip"
                                          click=""
                                          data-title="{{__('تم نسخ الرابط')}}">
