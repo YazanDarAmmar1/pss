@@ -31,4 +31,5 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en']], functio
     Route::get('/cart', App\Livewire\Home\Cart\CartUpdate::class)->name('cart');
     Route::get('/success/{transaction}', App\Livewire\Home\SuccessPayment::class)->name('success-payment');
     Route::get('/failed/{transaction}', App\Livewire\Home\FailedPayment::class)->name('failed-payment');
+    Route::get('/down/{transaction}', App\Livewire\Home\DownPayment::class)->name('down-payment');
 });

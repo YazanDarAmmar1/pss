@@ -151,6 +151,22 @@
                                                         </span>
 
                                                     </label>
+                                                    <label class="radio-control-img d-flex align-center gap-15">
+
+                                                        <input wire:model="payment_type"
+                                                               value="2"
+                                                               type="radio"
+                                                               name="payment"/>
+
+                                                        <span class="dv flex-all gap-10">
+
+                                                            <img
+                                                                src="{{asset('home-assets/images/payment-card-4.svg')}}"
+                                                                width="59"/>
+
+                                                        </span>
+
+                                                    </label>
 
                                                 </div>
 
@@ -196,5 +212,30 @@
 
     </section>
     <!-- ##payment -->
+    @push('js')
+        <script wire:ignore>
+            let benefitPayOpened = false;
 
+            Livewire.on('pay-by-benefit-payment', (...args) => {
+                if (benefitPayOpened) return;
+                benefitPayOpened = true;
+                let params = Array.isArray(args[0]) ? args[0][0] : args[0];
+                InApp.open(
+                    params,
+                    (success) => {
+                        benefitPayOpened = false;
+                        Livewire.dispatch('benefit-pay-check-payment', success);
+                    },
+                    (error) => {
+                        benefitPayOpened = false;
+                        console.log('BenefitPay Error:', error);
+                    },
+                    (cancel) => {
+                        benefitPayOpened = false;
+                        console.log('BenefitPay Cancel:', cancel);
+                    }
+                );
+            });
+        </script>
+    @endpush
 </div>

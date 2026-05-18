@@ -78,9 +78,19 @@ class PaymentTransaction extends Model
         return $query->where('status', PaymentStatus::Failed->value);
     }
 
+    public function scopeDown($query)
+    {
+        return $query->where('status', PaymentStatus::Down->value);
+    }
+
     public function changeStatus($status)
     {
         $this->status = $status;
         $this->save();
+    }
+
+    public function getAmountHumanAttribute()
+    {
+        return number_format($this->amount, 3);
     }
 }

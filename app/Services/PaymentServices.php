@@ -2,9 +2,14 @@
 
 namespace App\Services;
 
+use App\Enums\InvoiceStatus;
+use App\Enums\PaymentMethods;
 use App\Enums\PaymentStatus;
+use App\Enums\TransactionStatus;
 use App\Models\Invoice;
 use App\Models\PaymentTransaction;
+use App\Repository\MakePayment\PaymentResources\BenefitPayWindow;
+use App\Repository\MakePayment\paymentService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -59,6 +64,27 @@ class PaymentServices
             'user_id' => $invoice->user_id,
             'created_at' => $invoice->created_at,
         ]);
+    }
+
+    public function benefitPayMakePayment($referenceNumber, $merchantId)
+    {
+        $check_status = new BenefitPayCheckStatus($referenceNumber, $merchantId);
+        $result = $check_status->check_status();
+        $transaction = PaymentTransaction::where('no', $referenceNumber)->first();
+        if ($transaction && $transaction->exists()) {
+            if ($result['down'] and $transaction->changeStatus(PaymentStatus::Down->value)) {
+                return redirect()->route('down-payment', $transaction->no);
+            }
+            if ($result['status'] and $transaction->changeStatus(PaymentStatus::Paid->value)) {
+                $transaction->makeReceipt(PaymentMethods::BENEFIT->value);
+                return redirect()->route('success-payment', $transaction->no);
+            } else {
+                $transaction->changeStatus(PaymentStatus::Failed->value);
+                return redirect()->route('failed-payment', $transaction->no);
+            }
+        }
+
+        return redirect()->route('home');
     }
 
 }
