@@ -77,7 +77,7 @@
                        class="item item-2 d-flex gap-50 body-color flex-column-p">
 
                         <figure class="fig d-flex shrink-0 w-50 w-100-p">
-                            <img src="{{ asset('storage/' . $newsItem->image_path) }}"
+                            <img src="{{ asset($newsItem->image_path) }}"
                                  class="object-fit radius-24"
                                  width="234"
                                  height="234"/>
