@@ -40,7 +40,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js"></script>
 <script src="{{asset('home-assets/js/jscript.js')}}"></script>
 <script src="{{asset('home-assets/js/app.js')}}"></script>
-<script src="{{asset('home-assets/js/InAppT.min.js')}}"></script>
+<script src="{{asset('home-assets/js/InApp.min.js')}}"></script>
 @livewireScripts
 
 @include('modals.home')

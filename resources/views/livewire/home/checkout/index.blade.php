@@ -1,4 +1,4 @@
-<div x-data="{ activeTab: '{{ auth('app')->check() ? 'tgl-guest' : 'tgl-login' }}' }">
+<div x-data="{ activeTab: 'tgl-guest' }">
 
     <!-- #breadcrumb -->
     <nav class="breadcrumb-box">
