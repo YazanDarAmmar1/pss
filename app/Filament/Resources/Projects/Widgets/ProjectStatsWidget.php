@@ -13,7 +13,7 @@ class ProjectStatsWidget extends StatsOverviewWidget
     protected function getStats(): array
     {
         $target = $this->record->target_amount ?? 0;
-        $collected = $this->record->collected_amount ?? 0;
+        $collected = $this->record->paid_amount ?? 0;
         $remaining = $this->record->remaining_amount ?? 0;
         return [
             Stat::make('المستهدف', $target)
