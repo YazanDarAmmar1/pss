@@ -30,7 +30,7 @@ class freshProjectTotals
 
             if ($project) {
                 DB::transaction(function () use ($project, $invoiceItem) {
-                    $project = $project->lockForUpdate()->first();
+                    $project = \App\Models\Project::where('id', $project->id)->lockForUpdate()->first();
                     $paidAmount = $project->paid_amount + $invoiceItem->amount;
                     $remainingAmount = max(0, $project->target_amount - $paidAmount);
                     $rate = $project->target_amount > 0
