@@ -86,7 +86,7 @@ class PaymentTransaction extends Model
     public function changeStatus($status)
     {
         $this->status = $status;
-        $this->save();
+        return $this->save();
     }
 
     public function getAmountHumanAttribute()
