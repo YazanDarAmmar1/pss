@@ -49,4 +49,10 @@ class Invoice extends Model
     {
         return $this->hasMany(PaymentTransaction::class, 'invoice_id', 'id');
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(AppUser::class, 'user_id');
+
+    }
 }
