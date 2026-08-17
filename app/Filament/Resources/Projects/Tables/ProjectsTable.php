@@ -24,10 +24,13 @@ class ProjectsTable
                 ImageColumn::make('image_path')
                     ->label('')
                     ->imageHeight(40)
-                    ->disk('public')
+                    ->disk('files')
                     ->circular(),
                 TextColumn::make('no')
-                    ->label('')
+                    ->label('رقم المشروع')
+                    ->sortable(),
+                TextColumn::make('name')
+                    ->label('اسم المشروع')
                     ->sortable(),
                 TextColumn::make('category.name')
                     ->label('التصنيف')
