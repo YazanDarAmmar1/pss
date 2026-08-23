@@ -21,6 +21,7 @@
 /vendor
 /public/categories/*
 /public/image_profile/*
+/public/projects/*
 Homestead.json
 Homestead.yaml
 Thumbs.db

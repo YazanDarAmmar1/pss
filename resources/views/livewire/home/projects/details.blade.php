@@ -91,7 +91,7 @@
                             </div>
 
                             <p class="da font-18 f-500 pb-80 pb-20-p">
-                                {{$project->description}}
+                                {!! $project->description !!}
                             </p>
 
                         </div>
