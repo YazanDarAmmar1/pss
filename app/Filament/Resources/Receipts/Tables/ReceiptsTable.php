@@ -38,7 +38,7 @@ class ReceiptsTable
                     ->badge(),
                 TextColumn::make('amount')
                     ->label('المبلغ')
-                    ->numeric()
+                    ->numeric(locale: 'en')
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->label('التاريخ')
