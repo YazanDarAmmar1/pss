@@ -41,10 +41,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                //  AccountWidget::class,
+                //  FilamentInfoWidget::class,
             ])
-
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -59,8 +58,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->brandLogo(asset('home-assets/images/logo.svg'))
             ->brandLogoHeight('3rem')
-
-        ->authMiddleware([
+            ->authMiddleware([
                 Authenticate::class,
             ])
             ->plugin(

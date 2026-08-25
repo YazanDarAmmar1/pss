@@ -6,6 +6,7 @@ use App\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Invoice extends Model
 {
@@ -45,9 +46,14 @@ class Invoice extends Model
         return $this->hasMany(InvoiceItem::class, 'invoice_id', 'id');
     }
 
-    public function transactions(): HasMany
+    public function transaction(): HasOne
     {
-        return $this->hasMany(PaymentTransaction::class, 'invoice_id', 'id');
+        return $this->hasOne(PaymentTransaction::class, 'invoice_id', 'id');
+    }
+
+    public function receipt(): HasOne
+    {
+        return $this->hasOne(Receipt::class, 'invoice_id', 'id');
     }
 
     public function user(): BelongsTo

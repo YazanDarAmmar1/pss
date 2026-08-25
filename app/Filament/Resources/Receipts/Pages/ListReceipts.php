@@ -29,8 +29,7 @@ class ListReceipts extends ListRecords
                     Select::make('project_id')
                         ->label('المشروع')
                         ->options(Project::query()->pluck('name', 'id'))
-                        ->searchable()
-                        ->required(),
+                        ->searchable(),
                     DatePicker::make('date_from')->label('من تاريخ'),
                     DatePicker::make('date_to')->label('إلى تاريخ'),
                 ])

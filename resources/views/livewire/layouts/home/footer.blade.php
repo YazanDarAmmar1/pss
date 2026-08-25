@@ -125,20 +125,8 @@
                 <ul class="list-none social-foot d-flex gap-10">
 
                     <li>
-                        <a href="#" class="d-flex">
-                            <img src="{{asset('home-assets/images/linkedin.svg')}}" width="28" height="28"/>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#" class="d-flex">
+                        <a href="https://www.instagram.com/pss_bah?igsi=eGRoajZ5YXkzNzg4" class="d-flex">
                             <img src="{{asset('home-assets/images/instagram.svg')}}" width="28" height="28"/>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#" class="d-flex">
-                            <img src="{{asset('home-assets/images/facebook.svg')}}" width="28" height="28"/>
                         </a>
                     </li>
 

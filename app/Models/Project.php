@@ -6,6 +6,7 @@ use App\Enums\ProjectStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
 
 class Project extends Model
@@ -17,7 +18,7 @@ class Project extends Model
     protected $fillable = ['name', 'category_id', 'status', 'date_start', 'date_end',
         'target_amount', 'paid_amount', 'remaining_amount', 'rate', 'image_path', 'description',
         'short_description', 'is_seasonal', 'seasonal_start', 'seasonal_end', 'hide_on_complete',
-        'show_counter','default_amount'];
+        'show_counter', 'default_amount'];
     protected $casts = [
         'status' => ProjectStatus::class,
         'hide_on_complete' => 'boolean',
@@ -60,6 +61,7 @@ class Project extends Model
 
         return $next_no;
     }
+
     public function scopePublished($query)
     {
         $now = now();
@@ -73,14 +75,20 @@ class Project extends Model
                     ->orWhereNull('date_end');
             });
     }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
 
+    public function items(): HasMany
+    {
+        return $this->hasMany(InvoiceItem::class, 'project_id', 'id');
+    }
+
     public function getImageFullPathAttribute()
     {
-        if ($this->image_path){
+        if ($this->image_path) {
             return asset('storage/' . $this->image_path);
         }
     }

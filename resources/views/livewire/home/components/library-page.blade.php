@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="btns d-flex">
-                        <a href="#" class="btn btn-white">
+                        <a href="{{route('library')}}" class="btn btn-white">
                             {{__('زيارة المكتبة الرقمية')}}
                         </a>
                     </div>

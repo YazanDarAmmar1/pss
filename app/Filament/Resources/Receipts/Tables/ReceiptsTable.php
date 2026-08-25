@@ -23,6 +23,10 @@ class ReceiptsTable
         return $table
             ->columns([
                 TextColumn::make('no')
+                    ->label('رقم الإيصال')
+                    ->searchable(),
+                TextColumn::make('paymentTransaction.no')
+                    ->label('رقم الحركة')
                     ->searchable(),
                 TextColumn::make('user.name')
                     ->label('المتبرع')
@@ -36,18 +40,10 @@ class ReceiptsTable
                     ->label('المبلغ')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('date')
-                    ->label('التاريخ')
-                    ->date('Y-m-d')
-                    ->sortable(),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('التاريخ')
+                    ->date('Y-m-d H:i:s')
+                    ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('payment_method')
