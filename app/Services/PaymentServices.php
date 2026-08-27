@@ -53,7 +53,7 @@ class PaymentServices
 
     public function initiateTransaction($invoice)
     {
-        return $invoice->transactions()->create([
+        return $invoice->transaction()->create([
             'amount' => $invoice->amount,
             'user_id' => $invoice->user_id,
             'created_at' => $invoice->created_at,
@@ -70,7 +70,7 @@ class PaymentServices
                 return redirect()->route('down-payment', $transaction->no);
             }
             if ($result['status'] and $transaction->changeStatus(PaymentStatus::Paid->value)) {
-                $transaction->makeReceipt(PaymentMethods::BENEFIT->value);
+                //$transaction->makeReceipt(PaymentMethods::BENEFIT->value);
                 return redirect()->route('success-payment', $transaction->no);
             } else {
                 $transaction->changeStatus(PaymentStatus::Failed->value);
