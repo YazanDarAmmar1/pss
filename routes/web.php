@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\PaymentStatus;
+use App\Http\Controllers\ReceiptController;
 use App\Models\PaymentTransaction;
 use Illuminate\Support\Facades\Route;
 Route::match(['get', 'post'], 'callback/{globalTransactionsId}', function ($globalTransactionsId) {
@@ -29,6 +30,7 @@ Route::match(['get', 'post'], 'callback/{globalTransactionsId}', function ($glob
     return redirect()->route('failed-payment', ['locale' => $locale, 'transaction' => $transaction->no]);
 })->name('payment.callback');
 
+Route::get('/receipt/{transaction}/download', [ReceiptController::class, 'download'])->name('receipt.download');
 
 Route::fallback(function () {
     $locale = session('locale', 'ar');

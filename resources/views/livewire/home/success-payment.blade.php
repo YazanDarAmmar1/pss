@@ -118,12 +118,23 @@
 
                             <div class="actions flex-all">
 
+                                <a href="{{ route('receipt.download', $transaction->id) }}"
+                                   target="_blank"
+                                   class="btn btn-white w-100">
+                                    {{__('إيصال التبرع')}}
+                                </a>
+
+
+                            </div>
+                            <div class="actions flex-all mt-15">
+
                                 <a href="{{route('home')}}"
                                    class="btn btn-white w-100">
 
                                     {{__('العودة للصفحة الرئيسية')}}
 
                                 </a>
+
 
                             </div>
 
