@@ -8,12 +8,16 @@ use Spatie\Browsershot\Browsershot;
 
 class ReceiptController extends Controller
 {
-    public function download(PaymentTransaction $transaction)
+    public function download(string $transaction)
     {
+        $transaction = PaymentTransaction::where('id', $transaction)
+            ->orWhere('no', $transaction)
+            ->firstOrFail();
+
         abort_unless($transaction->status === PaymentStatus::Paid, 404);
 
         $invoice = $transaction->invoice()
-            ->with(['user', 'receipt.user'])
+            ->with(['items.project.country', 'user', 'receipt.user'])
             ->firstOrFail();
 
         $receipt = $invoice->receipt;
@@ -24,6 +28,10 @@ class ReceiptController extends Controller
         ])->render();
 
         $pdf = Browsershot::html($html)
+            ->setNodeBinary('/usr/bin/node')
+            ->setNpmBinary('/usr/bin/npm')
+            ->setChromePath('/www/wwwroot/munasara.bh/storage/app/puppeteer-cache/chrome/linux-148.0.7778.97/chrome-linux64/chrome')
+            ->noSandbox()
             ->format('A4')
             ->showBackground()
             ->margins(0, 0, 0, 0)
