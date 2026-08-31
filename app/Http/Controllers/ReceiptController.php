@@ -17,7 +17,7 @@ class ReceiptController extends Controller
         abort_unless($transaction->status === PaymentStatus::Paid, 404);
 
         $invoice = $transaction->invoice()
-            ->with(['items.project.country', 'user', 'receipt.user'])
+            ->with(['user', 'receipt.user'])
             ->firstOrFail();
 
         $receipt = $invoice->receipt;
