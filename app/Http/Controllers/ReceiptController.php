@@ -31,7 +31,13 @@ class ReceiptController extends Controller
             ->setNodeBinary('/usr/bin/node')
             ->setNpmBinary('/usr/bin/npm')
             ->setChromePath('/www/wwwroot/munasara.bh/storage/app/puppeteer-cache/chrome/linux-148.0.7778.97/chrome-linux64/chrome')
+            ->setEnvironmentOptions(['HOME' => '/www/wwwroot/munasara.bh/storage/app'])
             ->noSandbox()
+            ->addChromiumArguments([
+                'disable-crashpad',
+                'disable-dev-shm-usage',
+                'disable-gpu',
+            ])
             ->format('A4')
             ->showBackground()
             ->margins(0, 0, 0, 0)
