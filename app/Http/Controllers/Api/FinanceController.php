@@ -8,6 +8,7 @@ use App\Enums\PaymentStatus;
 use App\Events\ReceiptCreated;
 use App\Http\Controllers\Controller;
 use App\Models\PaymentTransaction;
+use App\Services\BenefitPayCheckStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -99,6 +100,104 @@ class FinanceController extends Controller
             info('EazyPay callback error: ' . $e->getMessage());
             return response()->json(['message' => 'Server error'], 500);
         }
+    }
+
+    public function benefitResponseURL()
+    {
+        $request = request();
+        info($request);
+
+        // Verify signature header exists
+        if (!$request->hasHeader('x-foo-signature')) {
+            return self::buildResponse(401, 'Authentication failure');
+        }
+
+        // Extract request data
+        $signature = $request->header('x-foo-signature');
+        $referenceNumber = $request->input('reference_number');
+        $merchantId = $request->input('merchant_id');
+        $status = $request->input('status');
+        $appId = $request->input('app_id');
+        $secretToken = env('BENEFIT_PAY_SECRET_CALLBACK_KEY');
+
+        info('BenefitPay callback', [
+            'signature' => $signature,
+            'secretToken' => $secretToken,
+            'referenceNumber' => $referenceNumber,
+            'merchantId' => $merchantId,
+            'status' => $status,
+            'appId' => $appId,
+        ]);
+
+        // Validate required parameters
+        if (!$status || !$merchantId || !$referenceNumber || !$appId) {
+            return self::buildResponse(400, 'Bad Request');
+        }
+
+        // Verify HMAC-SHA256 signature
+        $encodedJson = json_encode($request->all());
+        $hmac = hash_hmac('sha256', $encodedJson, $secretToken, true);
+        $isValidSignature = hash_equals($signature, base64_encode($hmac));
+
+        if (!$isValidSignature) {
+            return self::buildResponse(401, 'Authentication failure');
+        }
+
+        // Validate merchant credentials
+        $isValidMerchant = $merchantId === env('BENEFIT_PAY_MERCHANT_ID')
+            && $appId === env('BENEFIT_PAY_APP_ID')
+            && $status <= 1;
+
+        if (!$isValidMerchant) {
+            return self::buildResponse(300, 'Failure');
+        }
+
+        // Find transaction
+        $transaction = PaymentTransaction::where('no', $referenceNumber)->first();
+
+        if (!$transaction) {
+            return self::buildResponse(300, 'Failure');
+        }
+
+        // Find invoice
+        $invoice = $transaction->Invoice;
+
+        if (!$invoice) {
+            return self::buildResponse(300, 'Failure');
+        }
+
+        // Check payment status from BenefitPay
+        $checkStatus = new BenefitPayCheckStatus($referenceNumber, $merchantId);
+        $result = $checkStatus->check_status();
+
+        if ($result['down']) {
+            $transaction->changeStatus(PaymentStatus::Down->value);
+        }
+
+        // Process payment result
+        if ($result['status']) {
+            if ($transaction->changeStatus(PaymentStatus::Paid->value)) {
+                $transaction->makeReceipt(PaymentMethods::BENEFIT->value);
+            }
+        } else {
+            $transaction->changeStatus(PaymentStatus::Failed->value);
+        }
+
+        return self::buildResponse(200, 'Success');
+    }
+
+    private static function buildResponse(int $statusCode, string $message): array
+    {
+        info('BenefitPay callback response', [
+            'statusCode' => $statusCode,
+            'message' => $message,
+        ]);
+        return [
+            'response' => [
+                'statusCode' => $statusCode,
+                'message' => $message,
+            ],
+        ];
     }
 
 }
