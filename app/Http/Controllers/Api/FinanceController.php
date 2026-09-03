@@ -102,9 +102,8 @@ class FinanceController extends Controller
         }
     }
 
-    public function benefitResponseURL()
+    public function benefitResponseURL(Request $request)
     {
-        $request = request();
         info($request);
 
         // Verify signature header exists
