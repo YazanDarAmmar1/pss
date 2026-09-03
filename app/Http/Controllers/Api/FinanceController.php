@@ -104,7 +104,12 @@ class FinanceController extends Controller
 
     public function benefitResponseURL(Request $request)
     {
-        info($request);
+        info('BenefitPay raw', [
+            'method' => $request->method(),
+            'content_type' => $request->header('Content-Type'),
+            'raw_body' => $request->getContent(),
+            'query' => $request->query(),
+        ]);
 
         // Verify signature header exists
         if (!$request->hasHeader('x-foo-signature')) {
