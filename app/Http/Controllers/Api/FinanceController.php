@@ -181,7 +181,7 @@ class FinanceController extends Controller
         // Process payment result
         if ($result['status']) {
             if ($transaction->changeStatus(PaymentStatus::Paid->value)) {
-                $transaction->makeReceipt(PaymentMethods::BENEFIT->value);
+              //  $transaction->makeReceipt(PaymentMethods::BENEFIT->value);
             }
         } else {
             $transaction->changeStatus(PaymentStatus::Failed->value);
