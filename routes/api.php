@@ -7,4 +7,4 @@ Route::prefix('eazy')->group(function () {
     Route::match(['get', 'post'], '/callback', [FinanceController::class, 'eazyPayCallback'])
         ->name('eazy.callback');
 });
-Route::any('benefit-response-url', [FinanceController::class, 'benefitResponseURL'])->name('benefit.response.url');
+Route::match(['get', 'post'], 'benefit-response-url', [FinanceController::class, 'benefitResponseURL'])->name('benefit.response.url');
