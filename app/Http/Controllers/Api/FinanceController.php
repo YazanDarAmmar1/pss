@@ -104,13 +104,6 @@ class FinanceController extends Controller
 
     public function benefitResponseURL(Request $request)
     {
-        info('BenefitPay raw', [
-            'method' => $request->method(),
-            'content_type' => $request->header('Content-Type'),
-            'raw_body' => $request->getContent(),
-            'query' => $request->query(),
-        ]);
-
         // Verify signature header exists
         if (!$request->hasHeader('x-foo-signature')) {
             return self::buildResponse(401, 'Authentication failure');
@@ -123,15 +116,6 @@ class FinanceController extends Controller
         $status = $request->input('status');
         $appId = $request->input('app_id');
         $secretToken = env('BENEFIT_PAY_SECRET_CALLBACK_KEY');
-
-        info('BenefitPay callback', [
-            'signature' => $signature,
-            'secretToken' => $secretToken,
-            'referenceNumber' => $referenceNumber,
-            'merchantId' => $merchantId,
-            'status' => $status,
-            'appId' => $appId,
-        ]);
 
         // Validate required parameters
         if (!$status || !$merchantId || !$referenceNumber || !$appId) {
@@ -181,7 +165,7 @@ class FinanceController extends Controller
         // Process payment result
         if ($result['status']) {
             if ($transaction->changeStatus(PaymentStatus::Paid->value)) {
-              //  $transaction->makeReceipt(PaymentMethods::BENEFIT->value);
+                $transaction->makeReceipt(PaymentMethods::BENEFIT->value);
             }
         } else {
             $transaction->changeStatus(PaymentStatus::Failed->value);
