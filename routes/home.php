@@ -24,7 +24,6 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en']], functio
     Route::get('/news-details/{news_id}', \App\Livewire\Home\Components\NewsDetailsPage::class)->name('news.details');
     Route::get('/library', \App\Livewire\Home\Library\Index::class)->name('library');
     Route::get('/projects/{selected_category?}', \App\Livewire\Home\Projects\Index::class)->name('projects');
-    Route::get('/projects/details/{no}', \App\Livewire\Home\Projects\Details::class)->name('projects.details');
     Route::get('/contact-us', \App\Livewire\Home\ContactUs::class)->name('contact-us');
     Route::get('/about-us', \App\Livewire\Home\AboutUs::class)->name('about-us');
     Route::get('/checkout', App\Livewire\Home\Checkout\Index::class)->name('checkout')->middleware('cartHasItems');
@@ -32,4 +31,6 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en']], functio
     Route::get('/success/{transaction}', App\Livewire\Home\SuccessPayment::class)->name('success-payment');
     Route::get('/failed/{transaction}', App\Livewire\Home\FailedPayment::class)->name('failed-payment');
     Route::get('/down/{transaction}', App\Livewire\Home\DownPayment::class)->name('down-payment');
+    Route::get('/{no}', \App\Livewire\Home\Projects\Details::class)->name('projects.details');
+
 });
