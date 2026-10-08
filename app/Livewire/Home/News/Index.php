@@ -13,7 +13,9 @@ class Index extends Component
     public function render()
     {
         return view('livewire.home.news.index', [
-            'news' => News::Active()->paginate(10)
+            'news' => News::active()
+                ->orderBy('date', 'desc')
+                ->paginate(10)
         ])->layout('layouts.app');
     }
 }

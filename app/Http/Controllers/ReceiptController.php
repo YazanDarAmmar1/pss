@@ -23,7 +23,7 @@ class ReceiptController extends Controller
         $receipt = $invoice->receipt;
 
         $html = view('pdf.receipt', [
-            'data'    => $invoice,
+            'data' => $invoice,
             'receipt' => $receipt,
         ])->render();
 
@@ -48,7 +48,7 @@ class ReceiptController extends Controller
             ->pdf();
 
         return response($pdf, 200, [
-            'Content-Type'        => 'application/pdf',
+            'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'attachment; filename="receipt-' . $invoice->no . '.pdf"',
         ]);
     }

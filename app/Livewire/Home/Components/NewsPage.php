@@ -11,8 +11,12 @@ class NewsPage extends Component
 
     public function mount()
     {
-        $this->news = News::active()->orderBy('created_at','desc')->limit(3)->get();
+        $this->news = News::active()
+            ->orderBy('date', 'desc')
+            ->limit(3)
+            ->get();
     }
+
     public function render()
     {
         return view('livewire.home.components.news-page');
