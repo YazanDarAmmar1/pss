@@ -10,18 +10,20 @@ class News extends Model
 {
     use HasTranslations;
 
-    public $translatable = ['name', 'description','short_description','image_path'];
+    public $translatable = ['name', 'description', 'short_description', 'image_path', 'title_image_path'];
 
     protected $table = 'news';
-    protected $fillable = ['name', 'description', 'is_active', 'short_description', 'image_path','date'];
+    protected $fillable = ['name', 'description', 'is_active', 'short_description', 'image_path', 'title_image_path', 'date'];
 
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
     }
+
     public function getDateHumanAttribute(): string
     {
         $locale = app()->getLocale();
