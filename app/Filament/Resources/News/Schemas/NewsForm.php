@@ -20,49 +20,54 @@ class NewsForm
         return $schema
             ->components([
                 Section::make('')
-            ->description('يحتوي هذا القسم على بيانات الخبر الاساسية')
+                    ->description('يحتوي هذا القسم على بيانات الخبر الاساسية')
                     ->icon(Heroicon::OutlinedSquares2x2)
                     ->schema([
-                Grid::make(1)
-                ->schema([
-                    TextInput::make('name')
-                        ->label('العنوان')
-                        ->required(),
-                    FileUpload::make('image_path')
-                        ->label('الصورة البارزة')
-                        ->image()
-                        ->disk('files')
-                        ->directory('news')
-                        ->required(),
+                        Grid::make(1)
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('العنوان')
+                                    ->required(),
+                                FileUpload::make('image_path')
+                                    ->label('الصورة البارزة')
+                                    ->image()
+                                    ->disk('files')
+                                    ->directory('news')
+                                    ->required(),
+                                FileUpload::make('title_image_path')
+                                    ->label('الصورة الداخلية')
+                                    ->image()
+                                    ->disk('files')
+                                    ->directory('news')
+                                    ->required(),
 
-                    DatePicker::make('date')
-                        ->label('التاريخ')
-                        ->required(),
-                    Toggle::make('is_active')
-                        ->label('حالة العرض')
-                        ->required(),
-                ]),
+                                DatePicker::make('date')
+                                    ->label('التاريخ')
+                                    ->required(),
+                                Toggle::make('is_active')
+                                    ->label('حالة العرض')
+                                    ->required(),
+                            ]),
 
-            ]),
+                    ]),
 
                 Section::make('')
                     ->description('يحتوي هذا القسم على وصف الخبر')
                     ->icon(Heroicon::OutlinedRectangleGroup)
-
                     ->schema([
-                    Grid::make(1)
-                        ->schema([
-                            Textarea::make('short_description')
-                                ->label('الوصف المختصر')
-                                ->required()
-                                ->rows(4)
-                                ->columnSpanFull(),
-                            RichEditor::make('description')
-                                ->label('الوصف')
-                                ->required()
-                                ->columnSpanFull(),
-                        ])
-                ])
+                        Grid::make(1)
+                            ->schema([
+                                Textarea::make('short_description')
+                                    ->label('الوصف المختصر')
+                                    ->required()
+                                    ->rows(4)
+                                    ->columnSpanFull(),
+                                RichEditor::make('description')
+                                    ->label('الوصف')
+                                    ->required()
+                                    ->columnSpanFull(),
+                            ])
+                    ])
 
             ]);
     }

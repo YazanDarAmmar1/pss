@@ -71,7 +71,7 @@
                     </div>
 
                     <figure class="ff d-flex pb-40">
-                        <img src="{{asset($news->image_path)}}"
+                        <img src="{{asset($news->title_image_path)}}"
                              height="393"
                              width="100%"
                              class="object-fit radius-24"/>
